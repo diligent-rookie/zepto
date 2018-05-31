@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			.box{
+				width:400px;
+				text-align:center;
+				margin:20px auto;
+			}
+			input[type='text'] {
+				width: 200px;
+				height: 30px;
+				padding-left:30px;
+				font-size: 16px;
+				line-height: 30px;
+			}
+			
+			input[type='button'] {
+				width: 80px;
+				height: 30px;
+				font: 16px/30px "microsoft yahei";
+			}
+			
+			.content{
+				width: 200px;
+				height: 200px;
+				margin:20px auto;
+				background-color:darkred;
+				color: #fff;
+				font-size: 20px;
+				line-height: 40px;
+				font-family: "microsoft yahei";
+			}
+		</style>
+		<script src='js/zepto.min.js'></script>
+	</head>
+
+	<body>
+		<div class="box">
+			<input type="text" placeholder='请输入内容' id='inp' />
+			<input type="button" value='显示内容' id='btn' />
+			<div class='content'></div>
+		</div>
+		
+		<script>
+			//解决点透现象
+			window.addEventListener("load", function() {
+				FastClick.attach(document.body);
+			}, false);
+			//点击按钮，方块显示input输入框内容
+			Zepto(function() {
+				$("#btn").on('singleTap', function() {
+					var str = $("#inp").val();
+					$(".content").html(str);
+					$("#inp").val("");
+				})
+				//长按方块消失  划过元素透明度改变
+				$(".content").on({"longTap":function(){
+					$(this).hide(2000);
+				},"swipe":function(){
+					$(this).css("background","lightcoral");
+				}})
+				//双击input输入框，方块显示
+				$("#inp").on("doubleTap",function(){
+					$(".content").show(2000);
+				})
+			})
+		</script>
+	</body>
+
+</html>
